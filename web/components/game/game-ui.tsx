@@ -2,28 +2,10 @@
 
 import { PreloadScene } from '@/game/scenes';
 import { useGameStore } from '@/game/store/gameStore';
-import { useState, useEffect } from 'react';
-
-interface PageInfo {
-  page: number;
-  total: number;
-}
 
 export function GameUI() {
-  const { gameInstance } = useGameStore();
-  const [pageInfo, setPageInfo] = useState<PageInfo>({
-    page: 1,
-    total: 4
-  });
+  const { gameInstance, pageInfo } = useGameStore();
 
-  useEffect(() => {
-    const scene = gameInstance?.scene.getScene('PreloadScene') as PreloadScene;
-    if (scene) {
-      scene.setPageChangeCallback((pageInfo: PageInfo) => {
-        setPageInfo(pageInfo);
-      });
-    }
-  }, [gameInstance]);
 
   const handlePreloadSceneButtonClick = (isNext: boolean) => {
     if (gameInstance) {
