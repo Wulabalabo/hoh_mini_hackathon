@@ -35,7 +35,7 @@ export class MainScene extends Phaser.Scene {
     // Load game resources
     this.load.image('bg', '/images/mainbg.png');
     this.load.image('coin', '/images/sui.png');
-    useGameStore.getState().setState('main');
+    useGameStore.getState().setGameState('started');
 
     this.audioManager = new AudioManager(this);
     this.audioManager.preload();
@@ -161,9 +161,10 @@ export class MainScene extends Phaser.Scene {
   // 游戏结束
   private gameOver() {
     // 发送游戏结束事件到 gameStore
-    useGameStore.getState().setState('gameover');
+    useGameStore.getState().setGameState('paused');
     useGameStore.getState().setScore(this.score);
     this.events.emit(GameEvents.GAME_OVER, this.score);
+    console.log(useGameStore.getState().gameState);
     
     // 可以在这里添加游戏结束的逻辑
   }
@@ -196,6 +197,7 @@ export class MainScene extends Phaser.Scene {
     switch(dataObj.data) {
       case 'restart':
         this.resetGame();
+        useGameStore.getState().setGameState('started');
         break;
     }
     // 根据需要处理数据...
@@ -209,7 +211,7 @@ export class MainScene extends Phaser.Scene {
     }
     this.events.emit(GameEvents.SCORE_CHANGE, this.score);
     useGameStore.getState().setScore(this.score);
-    useGameStore.getState().setState('main');
+    useGameStore.getState().setGameState('init');
     this.resetCoinQueue();
     this.spawnNextCoin();
     // 重置其他游戏态...

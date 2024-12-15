@@ -21,6 +21,7 @@ export class PreloadScene extends Phaser.Scene {
   init() {
     this.load.on('complete', () => {
       console.log('Scene assets loaded completely');
+      useGameStore.getState().setGameState('preload');
     });
   }
 
@@ -38,7 +39,6 @@ export class PreloadScene extends Phaser.Scene {
     this.load.image('fud03', '/images/fud03.jpg');
     this.audioManager = new AudioManager(this);
     this.audioManager.preload();
-    useGameStore.getState().setState('preload');
   }
 
   create() {
