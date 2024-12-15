@@ -43,7 +43,12 @@ export class PreloadScene extends Phaser.Scene {
 
   create() {
     this.audioManager?.init();
+    // Play music and store the reference to stop it later
     this.audioManager?.playMusic(AUDIO_CONFIG.MUSIC.BATTLE.key, true, 0.5, 500);
+    // Stop music when transitioning to another scene
+    this.events.on('shutdown', () => {
+      this.audioManager?.stopAllMusic();
+    });
     this.showCurrentImage();
     this.updatePageInfo();
   }

@@ -11,6 +11,6 @@ export class BootScene extends Phaser.Scene {
 
   create() {
     // 启动 PreloadScene
-    this.scene.start('MainScene');
+    this.scene.start('PreloadScene');
   }
 }
