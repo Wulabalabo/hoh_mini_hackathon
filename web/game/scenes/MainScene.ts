@@ -123,7 +123,7 @@ export class MainScene extends Phaser.Scene {
     //   speed: 100
     // })); 
     
-    for(let i = 0; i < 2; i++) {
+    for(let i = 0; i < 50; i++) {
       this.coinQueue.push({
         type: Math.random() > 0.5 ? 'sui' : 'nosui',
         x: Math.floor(Math.random() * (300 - 100 + 1)) + 100,
